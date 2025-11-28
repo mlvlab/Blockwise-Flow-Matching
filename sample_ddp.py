@@ -84,9 +84,9 @@ def main(args):
     folder_name = f"{model_string_name}-{ckpt_string_name}-size-{args.resolution}-vae-" \
                   f"cfg-{args.cfg_scale}-seed-{args.seed.global_seed}-num_steps-{args.sampling.num_steps_per_segment}-{args.sampling.mode}-{args.name}"
     if args.save_dir is not None:
-        sample_folder_dir = f"{args.save_dir}/npz/{folder_name}"
+        sample_folder_dir = f"{args.save_dir}/samples/{folder_name}"
     else:
-        sample_folder_dir = f"npz/{folder_name}"
+        sample_folder_dir = f"samples/{folder_name}"
 
     if rank == 0:
         os.makedirs(sample_folder_dir, exist_ok=True)
