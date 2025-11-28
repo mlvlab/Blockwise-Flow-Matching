@@ -160,10 +160,10 @@ def main(args):
 
     # Make sure all processes have finished saving their samples before attempting to convert to .npz
     accelerator.wait_for_everyone()
-    if rank == 0 and args.save_npz:
+    if rank == 0:
         create_npz_from_sample_folder(sample_folder_dir, args.sampling.num_fid_samples)
     accelerator.wait_for_everyone()
-    if rank == 0 and args.save_npz:
+    if rank == 0:
         print(f"Removing PNG directory: {sample_folder_dir}")
         shutil.rmtree(sample_folder_dir)
         print("PNG directory removed. Done.")
@@ -174,16 +174,10 @@ def main(args):
 def parse_args(input_args=None):
     parser = argparse.ArgumentParser(description="Inference")
     parser.add_argument('--config', type=str)
-    parser.add_argument('--cfg_scale', type=float, default=1.0)
-    parser.add_argument('--ckpt_path', type=str)
-    parser.add_argument('--save_npz', type=bool, default=False)
     parser.add_argument('--save_dir', type=str)
     args = parser.parse_args()
 
     config = OmegaConf.load(args.config)
-    config.cfg_scale = args.cfg_scale
-    config.ckpt_path = args.ckpt_path
-    config.save_npz = args.save_npz
     config.save_dir = args.save_dir
     return config
 

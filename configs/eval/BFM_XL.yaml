@@ -1,6 +1,8 @@
 resolution: 256
 name: "CFG"
 
+ckpt_path: model_1.safetensors # put the path to the checkpoint
+
 seed:
   global_seed: 888
 
