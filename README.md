@@ -1,5 +1,5 @@
 # Blockwise-Flow-Matching
-[NeurIPS25] Official Implementation (Pytorch) of "Blockwise Flow Matching"
+[NeurIPS25] Official Implementation (Pytorch) of "Blockwise Flow Matching: Improving Flow Matching Models For Efficient High-Quality Generation"
 
 <h3 align="center">
     <a href="https://dogyunpark.github.io/bfm" target='_blank'><img src="https://img.shields.io/badge/🐳-Project%20Page-blue"></a>
