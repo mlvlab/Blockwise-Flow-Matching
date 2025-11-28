@@ -1,0 +1,80 @@
+logging:
+  output_dir: exps
+  project_name: BFM
+  exp_name: BFM_XL_frn  # required; must be set by user
+  logging_dir: logs
+  report_to: wandb  # choices: [tensorboard, wandb, both]
+
+compile:
+  enabled: true                   # Enable torch.compile
+  mode: default                   # Options: default, reduce-overhead, max-autotune
+  backend: inductor              # Backend to use (inductor is recommended)
+  fullgraph: false                 # Try to compile the entire graph (slower compile, faster runtime)
+  dynamic: false                    # Dynamic shapes handling (null=auto, true/false=explicit)
+
+model:
+  type: BFM_XL
+  network_config:
+      context_size: 32
+      in_channels: 4
+      mlp_ratio: 4.0
+      num_classes: 1000
+      q_norm: RMSNorm
+      k_norm: RMSNorm
+      rel_pos_embed: rope
+      segments: 6
+      segment_depth: 5
+      feature_alignment_depth: 20
+      adaln_type: lora
+      adaln_lora_dim: 288
+      use_checkpoint: false
+      finetune: true
+      pretrain_ckpt: model_1.safetensors # put the path to the pre-trained model
+      ignore_keys: ['frn_blocks']
+      frn_depth: 4
+
+dataset:
+  data_dir: datasets/imagenet256/ # put the path to the dataset
+  resolution: 256
+  batch_size: 256
+  num_workers: 4
+  prefetch_factor: 2
+  persistent_workers: True
+  pin_memory: True
+
+optimization:
+  allow_tf32: True
+  mixed_precision: bf16  # choices: [no, fp16, bf16]
+  epochs: 1400
+  resume_step: 1
+  max_train_steps: 2000000
+  gradient_accumulation_steps: 1
+  learning_rate: 1e-4
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay: 0.0
+  adam_epsilon: 1e-8
+  max_grad_norm: 1.0
+  seed: 0
+  warm_up: 40
+  profile_step: 50
+
+loss:
+  path_type: linear       # choices: [linear, cosine]
+  prediction: v           # choices: [v]
+  cfg_prob: 0.1
+  enc_type: dinov2-vit-b
+  proj_loss_weight: 0.5
+  loop_per_iter: 1
+
+evaluation:
+  checkpointing_steps: 10000
+  checkpointing_steps_list: [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000, 1200000, 1400000, 1600000, 1800000, 2000000]
+  checkpoints_total_limit: 5
+  ref_path: statistics/VIRTUAL_imagenet256_labeled.npz # put the path to the reference statistics
+  sampling_steps: 5000
+  eval_fid: true
+  evaluation_steps: 10000
+  evaluation_number_samples: 5000
+  evaluation_batch_size: 25
+  evaluation_num_steps_per_segment: 8

@@ -1,0 +1,44 @@
+resolution: 256
+name: "CFG"
+
+seed:
+  global_seed: 888
+
+precision:
+  tf32: true   # By default, use TF32 matmuls (recommended for Ampere GPUs)
+
+compile:
+  enabled: true                   # Enable torch.compile
+
+profile:
+  enabled: false
+
+model:
+  type: BFM_XL
+  network_config:
+      context_size: 32
+      in_channels: 4
+      mlp_ratio: 4.0
+      num_classes: 1000
+      q_norm: RMSNorm
+      k_norm: RMSNorm
+      rel_pos_embed: rope
+      segments: 6
+      segment_depth: 5
+      feature_alignment_depth: 20
+      adaln_type: lora
+      adaln_lora_dim: 288
+      dim_projection: 768
+
+sampling:
+  per_proc_batch_size: 50
+  num_fid_samples: 50000
+
+  # Sampling-related hyperparameters
+  mode: "sde"
+  path_type: "linear"       # choices: [linear, cosine]
+  prediction: "v"
+  num_steps_per_segment: 41
+  cfg_scale: 4
+  guidance_low: 0.0
+  guidance_high: 1.0
