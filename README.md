@@ -34,12 +34,12 @@ Intermediate checkpoints and configuration files will be saved in the `exps` fol
 #### Train BFM
 
 ```bash
-accelerate launch --multi_gpu --num_processes=8 train.py --config config/train/BFM_XL.yaml
+accelerate launch --multi_gpu --num_processes=8 train.py --config configs/train/BFM_XL.yaml
 ```
 
 #### [Optional] Train Feature Residual Network
 ```bash
-accelerate launch --multi_gpu --num_processes=8 train_frn.py --config config/train/BFM_XL_frn.yaml
+accelerate launch --multi_gpu --num_processes=8 train_frn.py --config configs/train/BFM_XL_frn.yaml
 ```
 
 ## Inference
@@ -48,7 +48,7 @@ You can modify the inference configuration in `config/eval`.
 - `num_steps_per_segment`: number of sampling step per segment
 
 ```bash
-accelerate launch --multi_gpu --num_processes=8 sample_ddp.py --config config/eval/BFM_XL.yaml
+accelerate launch --multi_gpu --num_processes=8 sample_ddp.py --config configs/eval/BFM_XL.yaml
 ```
 
 ## Acknowledgements
