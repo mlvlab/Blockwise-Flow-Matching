@@ -13,7 +13,7 @@ git clone https://github.com/mlvlab/Blockwise-Flow-Matching.git
 cd Blockwise-Flow-Matching
 conda create -n bfm python==3.12
 conda activate bfm
-pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 xformer --index-url https://download.pytorch.org/whl/cu126
+pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 xformers --index-url https://download.pytorch.org/whl/cu126
 pip install requirements.txt
 ```
 
