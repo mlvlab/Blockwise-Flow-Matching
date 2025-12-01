@@ -24,13 +24,6 @@ from src.utils.parallelize import apply_compile
 from src.data.dataset import CustomDataset
 from src.scheduler.flow_matching import blockwise_flow_matching
 
-os.environ["TMPDIR"] = "/nfs/dogyun/data/tmpdir"
-os.environ["TEMP"] = "/nfs/dogyun/data/tmpdir"
-os.environ["TMP"] = "/nfs/dogyun/data/tmpdir"
-os.environ["TORCH_HOME"] = "/nfs/dogyun/data/torch"
-os.environ["HF_HOME"] = "/nfs/dogyun/data/huggingface"
-
-
 @torch.no_grad()
 def sample_posterior(moments, latents_scale=1., latents_bias=0.):
     device = moments.device
