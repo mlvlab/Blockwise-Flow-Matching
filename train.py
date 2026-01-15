@@ -22,7 +22,7 @@ from src.utils.eval_utils import calculate_inception_stats_imagenet
 from src.utils.evaluator import Evaluator
 from src.utils.parallelize import apply_compile
 from src.data.dataset import CustomDataset
-from src.scheduler.flow_matching import blockwise_flow_matchin
+from src.scheduler.flow_matching import blockwise_flow_matching
 
 
 @torch.no_grad()
